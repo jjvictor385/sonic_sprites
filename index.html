@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.view {
+			width: 50px;
+			height: 50px;
+			background: url('img/l2.png');
+			background-position: 0 0;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div class="view"></div>
+	<script type="text/javascript">
+		function anim(c) {
+			c = c || {};
+			var element = c.element,
+				max = c.max || 11,
+				size = (c.size || 50) - 1,
+				interval = c.interval || 100,
+				range = size * max,
+				repeat = c.repeat,
+				repeatActived = false;
+			var checkKeys = (obj, keys) => {
+				for (let key of keys)
+					if (!(key in obj))
+						return false;
+				return true;
+			};
+			if (repeat instanceof Object && checkKeys(repeat, ['initial', 'final']))
+				repeatActived = true;
+			var x = 0, i;
+			i = setInterval(() => {
+				x += size;
+				if (repeatActived) {
+					let initial = repeat.initial * size,
+						final = repeat.final * size;
+					x == final && (x = initial - size);
+				} else if (x > range) {
+					x = 0;
+				}
+				element.style.backgroundPosition = -x + 'px';
+			}, interval);
+		}
+		anim({
+			element: document.querySelector('.view'),
+			max: 11,
+			interval: 100
+		});
+	</script>
+</body>
+</html>
