@@ -13,7 +13,7 @@
 		.view {
 			width: 50px;
 			height: 50px;
-			background: url('img/l2.png');
+			background: url('img/l.png');
 			background-position: 0 0;
 			display: inline-block;
 		}
@@ -43,9 +43,9 @@
 			i = setInterval(() => {
 				x += size;
 				if (repeatActived) {
-					let initial = repeat.initial * size,
+					let initial = (repeat.initial * size) - size,
 						final = repeat.final * size;
-					x == final && (x = initial - size);
+					x == final && (x = initial);
 				} else if (x > range) {
 					x = 0;
 				}
@@ -55,7 +55,11 @@
 		anim({
 			element: document.querySelector('.view'),
 			max: 11,
-			interval: 100
+			interval: 100,
+			repeat: {
+				initial: 10,
+				final: 11
+			}
 		});
 	</script>
 </body>
